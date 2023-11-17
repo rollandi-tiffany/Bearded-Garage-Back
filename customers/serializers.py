@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from .models import Vehicle
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -12,3 +13,8 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         Token.objects.create(user=user)
         return user  
+    
+class VehicleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vehicle
+        fields = ['year', 'make', 'model', 'services']    
