@@ -24,6 +24,16 @@ class AppUserManager(BaseUserManager):
         user.save()
         return user 
     
+class AppUser(AbstractBaseUser, PermissionsMixin):
+    user_id = models.AutoField(primary_key=True)
+    email = models.EmailField(max_length=50, unique=True)
+    username = models.CharField(max_length=50)
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
+    objects = AppUserManager()
+    def __str__(self):
+        return self.username
+    
 class Vehicle(models.Model):
     VEHICLE_INFO_CHOICES = [ ('Year', 'Year'), ('Make', 'Make'), ('Model', 'Model')]
     SERVICES_CHOICES = [('Oil Change', 'Oil Change'), ('Repairs', 'Repairs'), ('Diagnostics', 'Diagnostics'), ('Roadside Assistance', 'Roadside Assistance')]
