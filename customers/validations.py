@@ -15,3 +15,21 @@ def custom_validation(data):
     if not username:
         raise ValidationError("Username is taken. Choose a different username.")
     return data
+
+def validate_email(data):
+    email = data["email"].strip()
+    if not email:
+        raise ValidationError("Enter Email")
+    return True
+
+def validate_username(data):
+    username = data["username"].strip()
+    if not username:
+        raise ValidationError("Choose a Different Username")
+    return True
+
+def validate_password(data):
+    password = data["password"].strip()
+    if not password:
+        raise ValidationError("Enter Password")
+    return True
