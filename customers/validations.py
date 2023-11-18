@@ -12,3 +12,6 @@ def custom_validation(data):
         raise ValueError("Email failed. Try again")
     if not password or len(password) <9:
         raise ValueError(" Try again. Password needs to be 9 characters.")
+    if not username:
+        raise ValidationError("Username is taken. Choose a different username.")
+    return data

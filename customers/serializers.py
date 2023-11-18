@@ -8,8 +8,8 @@ UserModel = get_user_model()
 class UserSignupSerializer(serializers.ModelSerializer):
     class Meta: 
         model = UserModel
-        fields = "_ _all_ _"
-        
+        fields = "__all__"
+
     def create(self, clean_data):
 		user_obj = UserModel.objects.create_user(email=clean_data['email'], password=clean_data['password'])
 		user_obj.username = clean_data['username']
@@ -21,7 +21,7 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
     def check_user(self, clean_data):
-         user = authenticate(username = clean_data["email"], password = clean_data["password"])
+         user = authenticate(username=clean_data["email"], password=clean_data["password"])
          if not user:
               raise ValidationError("USER NOT FOUND")
          return user
