@@ -42,11 +42,24 @@ class UserLogin(APIView):
             user = serializer.check_user(data)
             login(req, user)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        
+class UserLogout(APIView):
+    def post(self, req):
+        logout(req)      
+        return Response(status=status.HTTP_200_OK) 
+    
+class UserView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)   
+
+    def get(self, req):
+        serializer = UserSerializer(req.user)
+        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+#class UserViewSet(viewsets.ModelViewSet):
+ #   queryset = User.objects.all()
+  #  serializer_class = UserSerializer
 
 
 class VehicleViewSet(viewsets.ModelViewSet):
